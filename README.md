@@ -25,7 +25,6 @@ El comando creara el archivo **package.json**
 **`npm i socket.io`**
 
 
-
 ## Funciones de los paquetes
 ### Express:
 Se pueden realizar **peticiones mediante el protocolo HTTP** en diferentes URL (rutas).
@@ -38,7 +37,7 @@ Es una librería basada en el protocolo Websocket para Node.js que **permite una
 
 
 
-
+<br>
 ## Correr la Aplicacion
 `nodemon app`
 

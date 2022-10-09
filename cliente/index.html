@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--  CDN Bootstrap  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        *{  list-style-type: none;  margin: 0;  padding: 0;   box-sizing: border-box;   }
+        h1{ text-align: center; }
+        form{
+            position: fixed;
+            display: flex;
+            height: 3rem;
+            background: rgb(0, 0, 0, .15);
+            padding: .25rem;
+            bottom: 0;
+            left: 0;    right: 0;
+            backdrop-filter: blur(10px);
+        }
+        ul > li{    padding: .5rem 1rem;    }
+        ul > li:nth-child(odd){
+            background: #dcf8c6;
+            text-align: right;
+            font-style: italic;
+            font-weight: 600;
+        }
+    </style>
+    <title>Aplicacion Chat</title>
+</head>
+<body>
+    <h1>Bienvenido al App-Chat</h1>
+
+    <ul class="list-group"></ul>
+    <form action="">
+        <input type="text" class="form-control" placeholder="Ingrese el mensaje">
+        <button type="submit" class="btn-primary">Enviar</button>
+    </form>
+    <!--  Referenciando un metodo ENDPOINT usando GET  
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>-->
+    <script src="/socket.io/socket.io.js"></script>
+    <!--  socket  -->
+    <script>
+        let socket = io();
+        // Referenciando al DOM
+        const form = document.querySelector('form');
+        const input = document.querySelector('input');
+        let mensajes = document.querySelector('ul');
+
+        // Evento submit
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Condicional para los mensajes a escribir
+            if(input.value){    // Si se ingreso algo
+                socket.emit('chat', input.value);    // Le pasamos lo ingresado y se envia
+                // Modificando 
+                input.value = '';
+            }
+        });
+
+        // Referenciando a los elementos
+        socket.on('chat', (msg) => {
+            // Una vez capturado el mensaje se mostrara a todos los demas usuarios de manera dinamica
+            let item = document.createElement('li');    // Creando el elemento
+            item.textContent = msg; // Le cargamos el mensaje
+            mensajes.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>
+</html>

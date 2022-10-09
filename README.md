@@ -25,7 +25,7 @@ El comando creara el archivo **package.json**
 **`npm i socket.io`**
 
 
-<br>
+
 ## Funciones de los paquetes
 ### Express:
 Se pueden realizar **peticiones mediante el protocolo HTTP** en diferentes URL (rutas).
